@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart of Love You</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .scene {
+            width: 400px;
+            height: 400px;
+            perspective: 800px;
+        }
+
+        .heart-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateHeart 10s linear infinite;
+        }
+
+        .love-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: #ff2d55;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+            text-shadow: 0 0 10px #ff2d55;
+            transform-origin: center;
+        }
+
+        @keyframes rotateHeart {
+            from { transform: rotateY(0deg) rotateX(10deg); }
+            to { transform: rotateY(360deg) rotateX(10deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="scene">
+    <div class="heart-container" id="heart"></div>
+</div>
+
+<script>
+    const container = document.getElementById('heart');
+    const totalWords = 60; // Jumlah kata "Love You"
+
+    for (let i = 0; i < totalWords; i++) {
+        const span = document.createElement('span');
+        span.className = 'love-text';
+        span.innerText = 'Love You';
+        
+        // Algoritma Matematika Persamaan Hati (Parametric Heart Equation)
+        const t = (i / totalWords) * 2 * Math.PI;
+        
+        // Persamaan koordinat X dan Y untuk membentuk hati
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+        
+        const scale = 12; // Ukuran hati
+        
+        // Mengatur posisi dan sedikit variasi rotasi agar terlihat 3D
+        span.style.transform = `
+            translate(-50%, -50%) 
+            translate3d(${x * scale}px, ${y * scale}px, ${Math.sin(t) * 50}px)
+            rotateY(${t}rad)
+        `;
+        
+        container.appendChild(span);
+    }
+</script>
+
+</body>
+</html>
